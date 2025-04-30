@@ -29,6 +29,10 @@ services:
       driver: "json-file"
       options:
         max-size: "1m"
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_log:/var/lib/zookeeper/log
+      - zookeeper_secrets:/etc/zookeeper/secrets
 
   kafka-ui: # https://github.com/provectus/kafka-ui/blob/master/documentation/compose/kafka-ui.yaml
     container_name: kafka-ui 
@@ -96,6 +100,9 @@ services:
       driver: "json-file"
       options:
         max-size: "1m"
+    volumes:
+      - broker1_data:/var/lib/kafka/data
+      - broker1_secrets:/etc/kafka/secrets
 
   broker-2:
     platform: linux/amd64
@@ -131,6 +138,9 @@ services:
       driver: "json-file"
       options:
         max-size: "1m"
+    volumes:
+      - broker2_data:/var/lib/kafka/data
+      - broker2_secrets:/etc/kafka/secrets
 
   broker-3:
     platform: linux/amd64
@@ -166,6 +176,9 @@ services:
       driver: "json-file"
       options:
         max-size: "1m"
+    volumes:
+      - broker3_data:/var/lib/kafka/data
+      - broker3_secrets:/etc/kafka/secrets
   
   # kafka-shell:
   #   image: confluentinc/cp-kafka:${CONFLUENT_PLATFORM_VERSION:-7.4.0}
@@ -245,3 +258,14 @@ services:
 networks:
   kafka:
     name: kafka
+  
+volumes:
+  zookeeper_data:
+  zookeeper_log:
+  zookeeper_secrets:
+  broker1_data:
+  broker2_data:
+  broker3_data:
+  broker1_secrets:
+  broker2_secrets:
+  broker3_secrets:
